@@ -15,7 +15,7 @@ import type {
 export class LaunchDarklyApi implements ICredentialType {
 	name = 'launchDarklyApi';
 	displayName = 'LaunchDarkly API';
-	documentationUrl = 'https://docs.launchdarkly.com/home/connecting/api';
+	documentationUrl = 'https://docs.launchdarkly.com/home/account-security/api-access-tokens';
 	properties: INodeProperties[] = [
 		{
 			displayName: 'Access Token',
@@ -27,6 +27,13 @@ export class LaunchDarklyApi implements ICredentialType {
 			default: '',
 			required: true,
 			description: 'LaunchDarkly API Access Token. Create one in Account Settings > Authorization > Access Tokens.',
+		},
+		{
+			displayName: 'API Base URL',
+			name: 'baseUrl',
+			type: 'string',
+			default: 'https://app.launchdarkly.com/api/v2',
+			description: 'Base URL for LaunchDarkly API',
 		},
 	];
 
