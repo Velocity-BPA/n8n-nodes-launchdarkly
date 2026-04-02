@@ -8,338 +8,273 @@
 >
 > For licensing information, visit https://velobpa.com/licensing or contact licensing@velobpa.com.
 
-A comprehensive n8n community node for LaunchDarkly, the enterprise feature management platform. This node provides full integration with LaunchDarkly's REST API, enabling workflow automation for feature flag management, targeting rules, user segments, environments, projects, audit logging, metrics, experiments, webhooks, teams, and members.
+This n8n community node provides seamless integration with LaunchDarkly's feature management platform. With 6 comprehensive resources, it enables complete control over feature flags, projects, environments, user segments, experiments, and user management directly within your n8n workflows.
 
-![n8n](https://img.shields.io/badge/n8n-community--node-blue)
+![n8n Community Node](https://img.shields.io/badge/n8n-Community%20Node-blue)
 ![License](https://img.shields.io/badge/license-BSL--1.1-blue)
-![Version](https://img.shields.io/badge/version-1.0.0-green)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
+![LaunchDarkly](https://img.shields.io/badge/LaunchDarkly-API-405DE6)
+![Feature Flags](https://img.shields.io/badge/Feature%20Flags-Enabled-green)
+![A/B Testing](https://img.shields.io/badge/A%2FB%20Testing-Supported-orange)
 
 ## Features
 
-- **Feature Flags**: Create, read, update, delete, toggle, and copy feature flags
-- **Targeting**: Manage targeting rules, user targets, fallthrough rules, and off variations
-- **Segments**: Create and manage user segments with included/excluded users
-- **Environments**: Manage environments and reset SDK keys
-- **Projects**: Full project lifecycle management
-- **Users**: Search, retrieve, and delete users
-- **Audit Log**: Access audit log entries for compliance and debugging
-- **Metrics**: Create and manage metrics for experimentation
-- **Experiments**: Create and manage A/B tests and experiments
-- **Webhooks**: Create and manage webhooks for event notifications
-- **Teams**: Create and manage teams with member assignments
-- **Members**: Invite, manage, and remove account members
-- **Trigger Node**: Receive webhook events from LaunchDarkly
+- **Feature Flag Management** - Create, update, toggle, and delete feature flags with full configuration control
+- **Project & Environment Control** - Manage LaunchDarkly projects and environments programmatically
+- **User Segmentation** - Create and manage user segments for targeted feature rollouts
+- **Experiment Automation** - Set up and manage A/B tests and feature experiments
+- **User Management** - Track and manage users within your LaunchDarkly environment
+- **Real-time Flag Updates** - Instantly modify flag states and targeting rules
+- **Bulk Operations** - Process multiple flags, users, or segments in single workflows
+- **Advanced Targeting** - Configure complex targeting rules and rollout strategies
 
 ## Installation
 
 ### Community Nodes (Recommended)
 
-1. Open your n8n instance
-2. Go to **Settings** > **Community Nodes**
-3. Select **Install**
-4. Enter `n8n-nodes-launchdarkly` and click **Install**
+1. Open n8n
+2. Go to **Settings** → **Community Nodes**
+3. Click **Install a community node**
+4. Enter `n8n-nodes-launchdarkly`
+5. Click **Install**
 
 ### Manual Installation
 
 ```bash
-# Navigate to your n8n installation directory
 cd ~/.n8n
-
-# Install the package
 npm install n8n-nodes-launchdarkly
 ```
 
 ### Development Installation
 
 ```bash
-# 1. Extract the zip file
-unzip n8n-nodes-launchdarkly.zip
+git clone https://github.com/Velocity-BPA/n8n-nodes-launchdarkly.git
 cd n8n-nodes-launchdarkly
-
-# 2. Install dependencies
 npm install
-
-# 3. Build the project
 npm run build
-
-# 4. Create symlink to n8n custom nodes directory
-# For Linux/macOS:
 mkdir -p ~/.n8n/custom
 ln -s $(pwd) ~/.n8n/custom/n8n-nodes-launchdarkly
-
-# For Windows (run as Administrator):
-# mklink /D %USERPROFILE%\.n8n\custom\n8n-nodes-launchdarkly %CD%
-
-# 5. Restart n8n
 n8n start
 ```
 
 ## Credentials Setup
 
-| Property | Type | Required | Description |
-|----------|------|----------|-------------|
-| Access Token | String | Yes | LaunchDarkly API Access Token |
-
-### Getting Your Access Token
-
-1. Log in to your LaunchDarkly account
-2. Go to **Account Settings** > **Authorization** > **Access Tokens**
-3. Click **Create Token**
-4. Choose the appropriate permissions (Read, Write, or Admin)
-5. Copy the generated token
+| Field | Description | Required |
+|-------|-------------|----------|
+| API Key | Your LaunchDarkly API access token | Yes |
+| Environment | Default environment key (can be overridden per operation) | No |
 
 ## Resources & Operations
 
-### Feature Flags
+### 1. Feature Flags
 
 | Operation | Description |
 |-----------|-------------|
-| Create | Create a new feature flag |
-| Get | Get a specific feature flag |
-| Get Many | List all feature flags in a project |
-| Update | Update a feature flag (semantic patch) |
-| Delete | Delete a feature flag |
-| Toggle | Turn a flag on or off in an environment |
-| Copy | Copy flag settings between environments |
+| Create | Create a new feature flag with targeting rules |
+| Get | Retrieve feature flag details and configuration |
+| Update | Modify flag settings, targeting, and variations |
+| Delete | Remove a feature flag permanently |
+| List | Get all feature flags for a project |
+| Toggle | Enable or disable a feature flag |
+| Update Targeting | Modify targeting rules without changing flag structure |
 
-### Targeting
-
-| Operation | Description |
-|-----------|-------------|
-| Get Flag State | Get the current state of a flag in an environment |
-| Add User Target | Add a user to a flag's targeting |
-| Remove User Target | Remove a user from a flag's targeting |
-| Update Fallthrough | Update the default rule for a flag |
-| Update Off Variation | Update the off variation for a flag |
-| Update Targeting | Update targeting rules |
-
-### Segments
+### 2. Projects
 
 | Operation | Description |
 |-----------|-------------|
-| Create | Create a new user segment |
-| Get | Get a specific segment |
-| Get Many | List all segments |
-| Update | Update a segment |
-| Delete | Delete a segment |
-| Add Users | Add users to a segment |
-| Remove Users | Remove users from a segment |
+| Create | Create a new LaunchDarkly project |
+| Get | Retrieve project details and configuration |
+| Update | Modify project settings and metadata |
+| Delete | Remove a project and all associated data |
+| List | Get all projects in your account |
 
-### Environments
+### 3. Environments
 
 | Operation | Description |
 |-----------|-------------|
-| Create | Create a new environment |
-| Get | Get a specific environment |
-| Get Many | List all environments |
-| Update | Update an environment |
-| Delete | Delete an environment |
-| Reset SDK Key | Reset the SDK key for an environment |
+| Create | Create a new environment within a project |
+| Get | Retrieve environment details and settings |
+| Update | Modify environment configuration |
+| Delete | Remove an environment permanently |
+| List | Get all environments for a project |
+| Reset API Key | Generate a new API key for an environment |
 
-### Projects
-
-| Operation | Description |
-|-----------|-------------|
-| Create | Create a new project |
-| Get | Get a specific project |
-| Get Many | List all projects |
-| Update | Update a project |
-| Delete | Delete a project |
-
-### Users
+### 4. Segments
 
 | Operation | Description |
 |-----------|-------------|
-| Get | Get a specific user |
-| Search | Search for users |
-| Delete | Delete a user |
+| Create | Create a new user segment with targeting criteria |
+| Get | Retrieve segment details and rules |
+| Update | Modify segment targeting and inclusion rules |
+| Delete | Remove a user segment |
+| List | Get all segments for a project |
+| Get Users | Retrieve users that match segment criteria |
 
-### Audit Log
-
-| Operation | Description |
-|-----------|-------------|
-| Get | Get a specific audit log entry |
-| Get Many | List audit log entries |
-
-### Metrics
+### 5. Experiments
 
 | Operation | Description |
 |-----------|-------------|
-| Create | Create a new metric |
-| Get | Get a specific metric |
-| Get Many | List all metrics |
-| Update | Update a metric |
-| Delete | Delete a metric |
+| Create | Set up a new A/B test or feature experiment |
+| Get | Retrieve experiment details and results |
+| Update | Modify experiment parameters and settings |
+| Delete | Remove an experiment |
+| List | Get all experiments for a project |
+| Start | Begin running an experiment |
+| Stop | End an active experiment |
+| Get Results | Retrieve experiment performance data |
 
-### Experiments
-
-| Operation | Description |
-|-----------|-------------|
-| Create | Create a new experiment |
-| Get | Get a specific experiment |
-| Get Many | List all experiments |
-| Update | Update an experiment |
-
-### Webhooks
+### 6. Users
 
 | Operation | Description |
 |-----------|-------------|
-| Create | Create a new webhook |
-| Get | Get a specific webhook |
-| Get Many | List all webhooks |
-| Update | Update a webhook |
-| Delete | Delete a webhook |
-
-### Teams
-
-| Operation | Description |
-|-----------|-------------|
-| Create | Create a new team |
-| Get | Get a specific team |
-| Get Many | List all teams |
-| Update | Update a team |
-| Delete | Delete a team |
-| Add Members | Add members to a team |
-| Remove Members | Remove members from a team |
-| Get Maintainers | Get team maintainers |
-
-### Members
-
-| Operation | Description |
-|-----------|-------------|
-| Invite | Invite new members |
-| Get | Get a specific member |
-| Get Many | List all members |
-| Update | Update a member |
-| Delete | Remove a member |
-
-## Trigger Node
-
-The **LaunchDarkly Trigger** node allows you to receive webhook events from LaunchDarkly. Configure a webhook in LaunchDarkly pointing to the n8n webhook URL.
-
-### Supported Events
-
-- Flag created, updated, deleted, on, off
-- Project created, updated
-- Environment created
-- Segment created, updated
-- Member invited, joined
-- Experiment started, stopped
-- Approval requested, approved
-
-### Webhook Verification
-
-The trigger supports HMAC-SHA256 signature verification for secure webhook delivery.
+| Create | Add a new user to LaunchDarkly |
+| Get | Retrieve user details and flag evaluations |
+| Update | Modify user attributes and custom properties |
+| Delete | Remove a user from the system |
+| List | Get all users in an environment |
+| Get Flag Settings | Retrieve all flag values for a specific user |
 
 ## Usage Examples
 
-### Toggle a Feature Flag
-
-```json
+```javascript
+// Toggle a feature flag for gradual rollout
 {
-  "resource": "featureFlag",
-  "operation": "toggle",
+  "resource": "featureFlags",
+  "operation": "update",
   "projectKey": "my-project",
-  "featureFlagKey": "new-feature",
-  "environmentKey": "production",
-  "enabled": true
-}
-```
-
-### Create a User Segment
-
-```json
-{
-  "resource": "segment",
-  "operation": "create",
-  "projectKey": "my-project",
-  "environmentKey": "production",
-  "segmentKey": "beta-users",
-  "name": "Beta Users",
-  "description": "Users participating in the beta program"
-}
-```
-
-### Search Audit Log
-
-```json
-{
-  "resource": "auditLog",
-  "operation": "getMany",
-  "returnAll": false,
-  "limit": 50,
-  "filters": {
-    "after": "2024-01-01T00:00:00Z"
+  "flagKey": "new-checkout-flow",
+  "environments": {
+    "production": {
+      "on": true,
+      "targets": [
+        {
+          "values": ["beta-users"],
+          "variation": 0
+        }
+      ],
+      "rules": [
+        {
+          "variation": 0,
+          "clauses": [
+            {
+              "attribute": "segmentMatch",
+              "op": "segmentMatch",
+              "values": ["early-adopters"]
+            }
+          ]
+        }
+      ],
+      "fallthrough": {
+        "rollout": {
+          "variations": [
+            {"variation": 0, "weight": 10000},
+            {"variation": 1, "weight": 90000}
+          ]
+        }
+      }
+    }
   }
 }
 ```
 
-## LaunchDarkly Concepts
+```javascript
+// Create a user segment for A/B testing
+{
+  "resource": "segments",
+  "operation": "create",
+  "projectKey": "ecommerce",
+  "body": {
+    "name": "Premium Customers",
+    "key": "premium-customers",
+    "description": "Users with premium subscription",
+    "rules": [
+      {
+        "clauses": [
+          {
+            "attribute": "subscription",
+            "op": "in",
+            "values": ["premium", "enterprise"]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
-### Feature Flags
+```javascript
+// Start an experiment to test new feature
+{
+  "resource": "experiments",
+  "operation": "create",
+  "projectKey": "mobile-app",
+  "environmentKey": "production",
+  "body": {
+    "name": "New Navigation Test",
+    "key": "nav-experiment",
+    "description": "Testing new navigation design",
+    "maintainerId": "user-123",
+    "flagKey": "new-navigation",
+    "randomizationUnit": "user",
+    "iterations": [
+      {
+        "hypothesis": "New navigation increases engagement",
+        "primaryMetricKey": "click-through-rate",
+        "treatments": [
+          {
+            "name": "control",
+            "baseline": true,
+            "allocationPercent": 50000
+          },
+          {
+            "name": "new-nav",
+            "allocationPercent": 50000
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
-Feature flags (also known as feature toggles) allow you to enable or disable features in your application without deploying new code. LaunchDarkly provides:
-
-- **Boolean flags**: Simple on/off toggles
-- **Multivariate flags**: Multiple variations for A/B testing
-- **Targeting rules**: Control which users see which variations
-
-### Environments
-
-Environments represent different stages of your deployment pipeline (e.g., development, staging, production). Each environment has its own SDK key and flag configurations.
-
-### Segments
-
-Segments are reusable groups of users that can be targeted across multiple flags. They support:
-
-- **Included users**: Explicitly included user keys
-- **Excluded users**: Explicitly excluded user keys
-- **Rules**: Dynamic rules based on user attributes
-
-### Semantic Patch
-
-LaunchDarkly uses semantic patch format for flag updates, which provides atomic operations like `turnFlagOn`, `turnFlagOff`, `updateName`, etc.
+```javascript
+// Bulk update user attributes for personalization
+{
+  "resource": "users",
+  "operation": "update",
+  "projectKey": "personalization",
+  "environmentKey": "production",
+  "userKey": "user-456",
+  "body": {
+    "custom": {
+      "plan": "enterprise",
+      "region": "us-west",
+      "signupDate": "2024-01-15",
+      "featureUsage": ["analytics", "reporting", "api"]
+    }
+  }
+}
+```
 
 ## Error Handling
 
-The node handles LaunchDarkly API errors gracefully:
-
-| Error Code | Description |
-|------------|-------------|
-| 400 | Bad request - check your parameters |
-| 401 | Unauthorized - verify your access token |
-| 403 | Forbidden - insufficient permissions |
-| 404 | Not found - resource doesn't exist |
-| 409 | Conflict - resource already exists |
-| 429 | Rate limited - too many requests |
-
-## Security Best Practices
-
-1. **Use Service Tokens**: For production workflows, use service tokens instead of personal tokens
-2. **Principle of Least Privilege**: Grant only the permissions needed
-3. **Rotate Tokens**: Regularly rotate your access tokens
-4. **Audit Access**: Monitor the audit log for unauthorized access
+| Error | Description | Solution |
+|-------|-------------|----------|
+| 401 Unauthorized | Invalid API key or insufficient permissions | Verify API key and check token permissions in LaunchDarkly |
+| 404 Not Found | Resource doesn't exist or wrong project/environment key | Confirm resource exists and check key spelling |
+| 409 Conflict | Resource already exists or flag key collision | Use different key or update existing resource |
+| 422 Unprocessable Entity | Invalid request payload or missing required fields | Validate request body against LaunchDarkly API schema |
+| 429 Rate Limit Exceeded | Too many API requests in time window | Implement rate limiting or add delays between requests |
+| 403 Forbidden | Insufficient permissions for operation | Check API key permissions and project access rights |
 
 ## Development
 
 ```bash
-# Install dependencies
 npm install
-
-# Build the project
 npm run build
-
-# Run linting
-npm run lint
-
-# Fix linting issues
-npm run lint:fix
-
-# Run tests
 npm test
-
-# Run tests with coverage
-npm run test:coverage
+npm run lint
+npm run dev
 ```
 
 ## Author
@@ -358,27 +293,22 @@ Permitted for personal, educational, research, and internal business use.
 ### Commercial Use
 Use of this node within any SaaS, PaaS, hosted platform, managed service, or paid automation offering requires a commercial license.
 
-For licensing inquiries:
-**licensing@velobpa.com**
+For licensing inquiries: **licensing@velobpa.com**
 
 See [LICENSE](LICENSE), [COMMERCIAL_LICENSE.md](COMMERCIAL_LICENSE.md), and [LICENSING_FAQ.md](LICENSING_FAQ.md) for details.
 
 ## Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Contributions are welcome! Please ensure:
+
+1. Code follows existing style conventions
+2. All tests pass (`npm test`)
+3. Linting passes (`npm run lint`)
+4. Documentation is updated for new features
+5. Commit messages are descriptive
 
 ## Support
 
-- **Documentation**: [LaunchDarkly API Docs](https://apidocs.launchdarkly.com/)
 - **Issues**: [GitHub Issues](https://github.com/Velocity-BPA/n8n-nodes-launchdarkly/issues)
-- **n8n Community**: [n8n Community Forum](https://community.n8n.io/)
-
-## Acknowledgments
-
-- [LaunchDarkly](https://launchdarkly.com/) for their excellent feature management platform
-- [n8n](https://n8n.io/) for the powerful workflow automation platform
-- The n8n community for their support and contributions
+- **LaunchDarkly API Docs**: [docs.launchdarkly.com](https://docs.launchdarkly.com/home/connecting/api)
+- **Feature Flag Best Practices**: [launchdarkly.com/blog](https://launchdarkly.com/blog/)
