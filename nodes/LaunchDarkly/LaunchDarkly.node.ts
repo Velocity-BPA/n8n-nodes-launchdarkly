@@ -11,6 +11,7 @@ import type {
 	INodeType,
 	INodeTypeDescription,
 } from 'n8n-workflow';
+import { NodeOperationError } from 'n8n-workflow';
 
 // Feature Flag
 import { featureFlagOperations, featureFlagFields } from './actions/featureFlag/featureFlag.description';
@@ -406,7 +407,7 @@ export class LaunchDarkly implements INodeType {
 				}
 
 				returnData.push(...result);
-			} catch (error) {
+			} catch (error: any) {
 				if (this.continueOnFail()) {
 					returnData.push({ json: { error: (error as Error).message }, pairedItem: { item: i } });
 					continue;
