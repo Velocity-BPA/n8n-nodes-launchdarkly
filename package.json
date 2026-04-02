@@ -1,81 +1,63 @@
 {
-  "name": "n8n-nodes-launchdarkly",
+  "name": "@velocity-bpa/n8n-nodes-launchdarkly",
   "version": "1.0.0",
-  "description": "A comprehensive n8n community node for LaunchDarkly providing 12 resources and 60+ operations for feature flag management, targeting, segments, environments, projects, users, audit logs, metrics, experiments, webhooks, teams, and members.",
-  "license": "BUSL-1.1",
+  "description": "n8n community node for LaunchDarkly API integration",
+  "license": "bsl-catalog",
+  "homepage": "https://github.com/velocity-bpa/n8n-nodes-launchdarkly",
   "author": {
     "name": "Velocity BPA",
-    "email": "licensing@velobpa.com",
-    "url": "https://velobpa.com"
+    "email": "info@velocitybpa.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Velocity-BPA/n8n-nodes-launchdarkly.git"
+    "url": "https://github.com/velocity-bpa/n8n-nodes-launchdarkly.git"
   },
-  "homepage": "https://github.com/Velocity-BPA/n8n-nodes-launchdarkly#readme",
-  "bugs": {
-    "url": "https://github.com/Velocity-BPA/n8n-nodes-launchdarkly/issues"
+  "engines": {
+    "node": ">=18.0.0"
   },
-  "keywords": [
-    "n8n",
-    "n8n-community-node-package",
-    "launchdarkly",
-    "feature-flags",
-    "feature-management",
-    "feature-toggle",
-    "a-b-testing",
-    "experimentation",
-    "rollouts",
-    "segments",
-    "targeting"
+  "packageManager": "pnpm@9.1.4",
+  "main": "dist/index.js",
+  "files": [
+    "dist/**/*"
   ],
-  "main": "dist/nodes/LaunchDarkly/LaunchDarkly.node.js",
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
       "dist/credentials/LaunchDarklyApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/LaunchDarkly/LaunchDarkly.node.js",
-      "dist/nodes/LaunchDarkly/LaunchDarklyTrigger.node.js"
+      "dist/nodes/LaunchDarkly/LaunchDarkly.node.js"
     ]
   },
   "scripts": {
-    "build": "tsc && gulp build:icons",
+    "build": "tsc",
     "dev": "tsc --watch",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
-    "format": "prettier --write \"**/*.ts\"",
-    "format:check": "prettier --check \"**/*.ts\"",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch",
-    "clean": "rimraf dist",
+    "format": "prettier --write .",
+    "lint": "eslint nodes credentials --ext .ts",
+    "lintfix": "eslint nodes credentials --ext .ts --fix",
     "prepublishOnly": "npm run build"
   },
-  "files": [
-    "dist"
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n-node",
+    "launchdarkly",
+    "feature-flags",
+    "experiments",
+    "api"
   ],
+  "dependencies": {
+    "axios": "^1.6.0"
+  },
   "devDependencies": {
-    "@types/jest": "^29.5.12",
-    "@types/node": "^20.11.16",
-    "@typescript-eslint/eslint-plugin": "^7.0.0",
-    "@typescript-eslint/parser": "^7.0.0",
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
     "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-n8n-nodes-base": "^1.16.1",
-    "gulp": "^4.0.2",
-    "jest": "^29.7.0",
     "n8n-workflow": "*",
-    "prettier": "^3.2.5",
-    "rimraf": "^5.0.5",
-    "ts-jest": "^29.1.2",
-    "typescript": "^5.3.3"
+    "prettier": "^3.2.0",
+    "typescript": "^5.3.0"
   },
   "peerDependencies": {
     "n8n-workflow": "*"
-  },
-  "engines": {
-    "node": ">=18.0.0"
   }
 }
