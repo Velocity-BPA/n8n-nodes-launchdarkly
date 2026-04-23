@@ -2,7 +2,7 @@
   "name": "@velocity-bpa/n8n-nodes-launchdarkly",
   "version": "1.0.0",
   "description": "n8n community node for LaunchDarkly API integration",
-  "license": "bsl-catalog",
+  "license": "SEE LICENSE IN LICENSE.md",
   "homepage": "https://github.com/velocity-bpa/n8n-nodes-launchdarkly",
   "author": {
     "name": "Velocity BPA",
@@ -53,7 +53,7 @@
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
     "eslint": "^8.56.0",
-    "n8n-workflow": "*",
+    "n8n-workflow": "1.57.0",
     "prettier": "^3.2.0",
     "typescript": "^5.3.0"
   },
